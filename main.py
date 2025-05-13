@@ -3,6 +3,7 @@ import xmltodict
 from dotenv import load_dotenv
 from mailer import send_email
 from utils import is_duplicate
+from utils import construir_url
 from search_by_odk_api import buscar_correo_en_submissions
 
 load_dotenv()
@@ -30,8 +31,10 @@ async def receive_webhook(req: Request):
     if form_id == "Laura2-piloto-encuesta-preregistro":
 
         email = parsed["data"]["participantes"].get("correo")
+        id_participant = parsed["data"]["participantes"].get("participante_id")
         subject = "¡Gracias por participar en el proyecto LAURA!"
-        message = """
+        url_id = construir_url(id_participant)
+        message = f"""
             <p>Hola, muchas gracias por tu interés en el proyecto <strong>LAURA</strong>.</p>
         
             <p>Ya que has completado el formulario de pre-registro, pasamos a la siguiente fase con el cuestionario de la <strong>Encuesta Nacional</strong> que comprende preguntas de datos generales y salud femenina.</p>
@@ -54,7 +57,7 @@ async def receive_webhook(req: Request):
                     </a>
                 </li>
                 <li>Encuesta Nacional:
-                    <a href="https://odkcentral.upch.edu.pe/-/single/b77d299342bebf196c723f10284d2a963d2251c08eb161f2595d73055cefa2cb?st=J$auHziEkSa3LF2haS9JIWi2eeyFc7nJFhgLKO$JnpZxr$2b0fd8eC!N2sHf$Ow2">
+                    <a href={url_id}>
                         Acceder a la encuesta
                     </a>
                 </li>
@@ -66,13 +69,31 @@ async def receive_webhook(req: Request):
             
             <p>Atentamente,</p>
             <p><img src="https://drive.google.com/file/d/109KJ3wBlPtuv5uc1QsM3igm61v6OO00O/view?usp=sharing" alt="Logo LAURA" width="150"/></p>
-            """
+        """
     elif form_id == "Laura2-piloto-encuesta-p1":
-        participant_id = parsed["data"]["general_data"].get("Q1.2_participant_id")
+        participant_id = parsed["data"].get("id_part")  # <-- Aquí está el valor que vino vía prellenado
+        print("🔎 participant_id (desde id_part):", participant_id)
         email = buscar_correo_en_submissions(participant_id)
         print("🔎 participant_id:", participant_id)
         subject = f"Gracias por tu envío desde el formulario {form_id}"
-        message = "Tu informacion ha sido registrada."
+        message = f"""
+            <p>Hola,</p>
+
+            <p>Hemos recibido correctamente tu respuesta al formulario <strong>{form_id}</strong>. 🎉</p>
+
+            <p><strong>ID de participante:</strong> {participant_id}</p>
+
+            <p>Tu información ha sido registrada en nuestra base de datos de forma <strong>segura y confidencial</strong>.</p>
+
+            <p>Si necesitamos contactarte para alguna validación o seguimiento adicional, lo haremos a través de este correo electrónico.</p>
+
+            <p>Muchas gracias por tu participación en el proyecto <strong>LAURA</strong>. 🫶</p>
+
+            <p>Atentamente,<br>
+            Equipo del proyecto LAURA</p>
+
+            <p><img src="https://drive.google.com/file/d/109KJ3wBlPtuv5uc1QsM3igm61v6OO00O/view?usp=sharing" alt="Logo LAURA" width="150"/></p>
+        """
 
     if email:
         await send_email(subject, message, email)

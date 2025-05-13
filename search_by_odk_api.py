@@ -1,6 +1,3 @@
-import requests
-import os
-from utils import get_odk_token  # o donde la tengas definida
 from dotenv import load_dotenv
 load_dotenv()
 

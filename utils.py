@@ -25,3 +25,8 @@ def get_odk_token():
     else:
         print(f"❌ Error al obtener token: {response.status_code} - {response.text}")
         return None
+
+def construir_url(valor_id):
+    # valor_codificado = quote_plus(valor_id)  # para escapar caracteres especiales
+    return f"https://odkcentral.upch.edu.pe/-/single/b77d299342bebf196c723f10284d2a963d2251c08eb161f2595d73055cefa2cb?st=J$auHziEkSa3LF2haS9JIWi2eeyFc7nJFhgLKO$JnpZxr$2b0fd8eC!N2sHf$Ow2&d[/data/part_id]={valor_id}"
+
