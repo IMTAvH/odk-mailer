@@ -3,7 +3,7 @@ import xmltodict
 from dotenv import load_dotenv
 from mailer import send_email
 from utils import is_duplicate
-from search_by_odk_api import buscar_correo_por_participant_id
+from search_by_odk_api import buscar_correo_en_submissions
 
 load_dotenv()
 
@@ -73,7 +73,7 @@ async def receive_webhook(req: Request):
             """
     elif form_id == "Laura2-piloto-encuesta-p1":
         participant_id = parsed["data"]["general_data"].get("Q1.2_participant_id")
-        email = buscar_correo_por_participant_id(participant_id)
+        email = buscar_correo_en_submissions(participant_id)
         print("🔎 participant_id:", participant_id)
         subject = f"Gracias por tu envío desde el formulario {form_id}"
         message = "Tu informacion ha sido registrada."
