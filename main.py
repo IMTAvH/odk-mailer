@@ -23,10 +23,6 @@ async def receive_webhook(req: Request):
     form_id = parsed["data"].get("@id")
     print(form_id)
     instance_id = parsed["data"]["meta"].get("instanceID")
-    email = parsed["data"]["participantes"].get("correo")
-
-    if not instance_id or not email:
-        return {"status": "error", "message": "Missing instanceID or email"}
 
     if is_duplicate(instance_id):
         print(f"⚠️ Duplicate ignored: {instance_id}")
@@ -34,6 +30,7 @@ async def receive_webhook(req: Request):
 
     if form_id == "Laura2-piloto-encuesta-preregistro":
 
+        email = parsed["data"]["participantes"].get("correo")
         subject = "¡Gracias por participar en el proyecto LAURA!"
         message = """
             <p>Hola, muchas gracias por tu interés en el proyecto <strong>LAURA</strong>.</p>
