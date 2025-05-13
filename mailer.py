@@ -1,19 +1,18 @@
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 import os
-import aiosmtplib
-from email.message import EmailMessage
 
-async def send_email(subject, message, to_email):
-    msg = EmailMessage()
-    msg["From"] = os.getenv("EMAIL_FROM")
-    msg["To"] = to_email
+async def send_email(subject, html_message, recipient):
+    msg = MIMEMultipart("alternative")
     msg["Subject"] = subject
-    msg.set_content(message)
+    msg["From"] = os.getenv("EMAIL_FROM")
+    msg["To"] = recipient
 
-    await aiosmtplib.send(
-        msg,
-        hostname=os.getenv("EMAIL_HOST"),
-        port=int(os.getenv("EMAIL_PORT", 587)),
-        username=os.getenv("EMAIL_USER"),
-        password=os.getenv("EMAIL_PASSWORD"),
-        start_tls=True
-    )
+    part = MIMEText(html_message, "html")
+    msg.attach(part)
+
+    with smtplib.SMTP(os.getenv("EMAIL_HOST"), int(os.getenv("EMAIL_PORT"))) as server:
+        server.starttls()
+        server.login(os.getenv("EMAIL_USER"), os.getenv("EMAIL_PASSWORD"))
+        server.send_message(msg)
