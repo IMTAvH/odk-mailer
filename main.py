@@ -71,8 +71,8 @@ async def receive_webhook(req: Request):
             <p><img src="https://drive.google.com/file/d/109KJ3wBlPtuv5uc1QsM3igm61v6OO00O/view?usp=sharing" alt="Logo LAURA" width="150"/></p>
         """
     elif form_id == "Laura2-piloto-encuesta-p1":
-        participant_id = parsed["data"].get("id_part")  # <-- Aquí está el valor que vino vía prellenado
-        print("🔎 participant_id (desde id_part):", participant_id)
+        participant_id = parsed["data"].get("part_id")  # <-- Aquí está el valor que vino vía prellenado
+        print("🔎 participant_id (desde part_id):", participant_id)
         email = buscar_correo_en_submissions(participant_id)
         print("🔎 participant_id:", participant_id)
         subject = f"Gracias por tu envío desde el formulario {form_id}"
