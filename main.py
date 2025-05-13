@@ -68,7 +68,7 @@ async def receive_webhook(req: Request):
             <p><strong>¡Próximamente nos pondremos en contacto contigo!</strong> ☺️ Gracias a tus respuestas podremos dar a conocer a nivel nacional los principales problemas de salud que aquejan a la mujer peruana.</p>       
             
             <p>Atentamente,</p>
-            <p><img src="https://drive.google.com/file/d/109KJ3wBlPtuv5uc1QsM3igm61v6OO00O/view?usp=sharing" alt="Logo LAURA" width="150"/></p>
+            <p><img src="https://drive.google.com/uc?export=view&id=109KJ3wBlPtuv5uc1QsM3igm61v6OO00O" alt="Logo LAURA" width="150"/></p>
         """
     elif form_id == "Laura2-piloto-encuesta-p1":
         participant_id = parsed["data"].get("part_id")  # <-- Aquí está el valor que vino vía prellenado
