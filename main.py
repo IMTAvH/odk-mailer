@@ -21,7 +21,6 @@ async def receive_webhook(req: Request):
 
     parsed = xmltodict.parse(raw_xml)
     form_id = parsed["data"].get("@id")
-    print(form_id)
     instance_id = parsed["data"]["meta"].get("instanceID")
 
     if is_duplicate(instance_id):
@@ -75,7 +74,10 @@ async def receive_webhook(req: Request):
         subject = f"Gracias por tu envío desde el formulario {form_id}"
         message = "Tu informacion ha sido registrada."
 
-    await send_email(subject, message, email)
-    print(f"✅ Email sent to {email} (ID: {instance_id})")
+    if email:
+        await send_email(subject, message, email)
+        print(f"✅ Email sent to {email} (ID: {instance_id})")
+    else:
+        print(f"⚠️ No se encontró correo válido para ID: {instance_id}")
 
     return {"status": "ok"}
