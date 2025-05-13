@@ -20,7 +20,7 @@ async def receive_webhook(req: Request):
         return {"status": "error", "message": "No XML found"}
 
     parsed = xmltodict.parse(raw_xml)
-    form_id = parsed["data"].get("id")
+    form_id = parsed["data"].get("@id")
     print(form_id)
     instance_id = parsed["data"]["meta"].get("instanceID")
     email = parsed["data"]["participantes"].get("correo")
