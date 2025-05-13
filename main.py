@@ -12,6 +12,8 @@ app = FastAPI()
 @app.post("/hooks")
 async def receive_webhook(req: Request):
     body = await req.json()
+    print("📩 Webhook recibido")
+    print("📄 body:", body)
     raw_xml = body.get("data", {}).get("xml")
     form_id = body.get("formId")  # 👈 Aquí se captura el formulario origen
 
