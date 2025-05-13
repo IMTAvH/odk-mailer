@@ -15,15 +15,13 @@ async def receive_webhook(req: Request):
     print("📩 Webhook recibido")
     print("📄 body:", body)
     raw_xml = body.get("data", {}).get("xml")
-    form_id = body.get("formId")  # 👈 Aquí se captura el formulario origen
 
     if not raw_xml:
         return {"status": "error", "message": "No XML found"}
 
-    if not form_id:
-        return {"status": "error", "message": "No formId found"}
-
     parsed = xmltodict.parse(raw_xml)
+    form_id = parsed["data"].get("id")
+    print(form_id)
     instance_id = parsed["data"]["meta"].get("instanceID")
     email = parsed["data"]["participantes"].get("correo")
 
