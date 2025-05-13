@@ -32,8 +32,9 @@ async def receive_webhook(req: Request):
 
         email = parsed["data"]["participantes"].get("correo")
         id_participant = parsed["data"]["participantes"].get("participante_id")
+        edad = parsed["data"]["participantes"].get("edad")
         subject = "¡Gracias por participar en el proyecto LAURA!"
-        url_id = construir_url(id_participant)
+        url_id = construir_url(id_participant, edad)
         message = f"""
             <p>Hola, muchas gracias por tu interés en el proyecto <strong>LAURA</strong>.</p>
         
@@ -92,7 +93,7 @@ async def receive_webhook(req: Request):
             <p>Atentamente,<br>
             Equipo del proyecto LAURA</p>
 
-            <p><img src="https://drive.google.com/file/d/109KJ3wBlPtuv5uc1QsM3igm61v6OO00O/view?usp=sharing" alt="Logo LAURA" width="150"/></p>
+            <p><img src="https://drive.google.com/uc?export=view&id=109KJ3wBlPtuv5uc1QsM3igm61v6OO00O" alt="Logo LAURA" width="150"/></p>
         """
 
     if email:

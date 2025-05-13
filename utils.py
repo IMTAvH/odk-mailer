@@ -26,7 +26,7 @@ def get_odk_token():
         print(f"❌ Error al obtener token: {response.status_code} - {response.text}")
         return None
 
-def construir_url(valor_id):
+def construir_url(valor_id, edad):
     # valor_codificado = quote_plus(valor_id)  # para escapar caracteres especiales
-    return f"https://odkcentral.upch.edu.pe/-/single/oJaqbizarAl2a5ITzH2YsX2gjzETtZc?st=iBuuWmJsoZ!tVBhBiszLnN7BZbtI7zlepFvpgFGJWqBzSPC6riGbcIpduEAN$L39&d[/data/part_id]={valor_id}"
+    return f"https://odkcentral.upch.edu.pe/-/single/oJaqbizarAl2a5ITzH2YsX2gjzETtZc?st=iBuuWmJsoZ!tVBhBiszLnN7BZbtI7zlepFvpgFGJWqBzSPC6riGbcIpduEAN$L39&d[/data/part_id]={valor_id}&d[/data/general_data/Q1.3_age]={edad}"
 
