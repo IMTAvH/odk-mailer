@@ -41,7 +41,7 @@ def construir_url_consent(valor_id):
 
 
 def construir_url_part1(valor_id, edad):
-    return_url = f"https://odkcentral.upch.edu.pe:4000/next?part_id={quote(valor_id)}&form=f2"
+    return_url = f"https://odkcentral.upch.edu.pe/next?part_id={quote(valor_id)}&form=f2"
     # valor_codificado = quote_plus(valor_id)  # para escapar caracteres especiales
     formulario = {
         "form_id": "oJaqbizarAl2a5ITzH2YsX2gjzETtZc",
