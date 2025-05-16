@@ -72,7 +72,7 @@ def next(part_id: str, form: str):
 
     if next_form:
         # Crear returnUrl para el siguiente paso
-        return_url = f"https://odkcentral.upch.edu.pe/next?part_id={quote(part_id)}&form={next_form}"
+        return_url = f"https://odkcentral.upch.edu.pe:4000/next?part_id={quote(part_id)}&form={next_form}"
         url += f"&returnUrl={quote(return_url, safe='')}"
 
     return RedirectResponse(url)
