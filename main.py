@@ -144,7 +144,7 @@ async def receive_webhook(req: Request):
         print("🔎 participant_id (desde part_id):", participant_id)
         email = buscar_correo_en_submissions(participant_id)
         edad = buscar_edad_en_submissions(participant_id)
-        short_id = parsed["data"]["participantes"].get("short_id")
+        # short_id = parsed["data"]["participantes"].get("short_id")
         print("🔎 participant_id:", participant_id)
         subject = f"¡Gracias por completar el Consentimiento Informado del proyecto LAURA!"
         url_p1 = construir_url_part1(participant_id, edad)
@@ -156,8 +156,6 @@ async def receive_webhook(req: Request):
             <p>Hemos recibido correctamente tu consentimiento informado. 🎉</p>
 
             <p>Tu información ha sido registrada en nuestra base de datos de forma <strong>segura y confidencial</strong>.</p>
-            
-            <p>Recordar que tu codigo de participante es: {short_id}</p>
             
             <p> A continuacion podras iniciar la Encuesta Nacional </p>
             
