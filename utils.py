@@ -37,14 +37,14 @@ def construir_url_consent(valor_id):
             "form_id": "ganT9xIuyBEkCmQ1mRY8cpeIWWzxhi8",
             "token": "7hvmW0WI844J9APdTa13h0h14tli31!YsFuEIMY2YBEnlkg0$r1HjJ3sVfbTgSje"
         }
-    return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&d[/data/consent/part_id]={valor_id}"
+    return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&d[/data/part_id]={valor_id}"
 
 
 def construir_url_part1(valor_id, edad):
     formulario = {
         "form_id": "oJaqbizarAl2a5ITzH2YsX2gjzETtZc",
         "token": "C$6e3qVTuUep24hjvlfHMPRTudVzhwhmKibeXTSAapZgwBJeGSksmVN7Htle9iYj",
-        "part_id": "d[/data/general_health/part_id_2]",
+        "part_id": "d[/data/part_id_2]",
         "age": "d[/data/general_data/Q1.3_age]"
         }
     return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&{formulario['part_id']}={valor_id}&{formulario['age']}={edad}"
@@ -53,7 +53,7 @@ def construir_url_part2(valor_id):
     formulario = {
         "form_id": "fgLy1rY5M1YOeycvuIxqMHsUNBYoZCX",
         "token": "d4YCxBKvsx$tkKOWB6OD0RPijaxIAc1ktxG58KvPKFaQYTRKWNsQUYjTO$aCJW9f",
-        "part_id": "d[/data/menstrual_health_spm/part_id_3]"
+        "part_id": "d[/data/part_id_3]"
         }
     return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&{formulario['part_id']}={valor_id}"
 
@@ -61,7 +61,7 @@ def construir_url_part3(valor_id):
     formulario = {
         "form_id": "vmngcom1ZaTITHFj5MHfJefN6Oevjk0",
         "token": "xU2nudC!h$gAzcDoe5TcqK5pz4RQfAUN0HqtyHRrEW1oy4mcvfz$rRBsNnQzW0Mn",
-        "part_id": "d[/data/End/part_id_4]"
+        "part_id": "d[/data/part_id_4]"
         }
     return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&{formulario['part_id']}={valor_id}"
 

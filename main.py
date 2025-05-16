@@ -101,10 +101,13 @@ async def receive_webhook(req: Request):
 
         email = parsed["data"]["participantes"].get("correo")
         id_participant = parsed["data"]["participantes"].get("participante_id")
+        short_id = parsed["data"]["participantes"].get("short_id")
         subject = "¡Gracias por participar en el proyecto LAURA!"
         url_id = construir_url_consent(id_participant)
         message = f"""
             <p>Hola, muchas gracias por tu interés en el proyecto <strong>LAURA</strong>.</p>
+            
+            <p>Tu codigo de participante es: {short_id}</p>
         
             <p>Ya que has completado el formulario de pre-registro, pasamos a la siguiente fase con el cuestionario del <strong>Consentiemiento Informado</strong></p>
         
@@ -131,19 +134,19 @@ async def receive_webhook(req: Request):
                     </a>
                 </li>
             </ol>
-        
             
-            
-            <p>Atentamente,</p>
+            <p>Atentamente,<br>
+            Equipo del proyecto LAURA</p>
             <p><img src="https://drive.google.com/uc?export=view&id=109KJ3wBlPtuv5uc1QsM3igm61v6OO00O" alt="Logo LAURA" width="150"/></p>
         """
     elif form_id == "Laura2-piloto-encuesta-ic":
-        participant_id = parsed["data"]["consent"].get("part_id")  # <-- Aquí está el valor que vino vía prellenado
+        participant_id = parsed["data"].get("part_id")  # <-- Aquí está el valor que vino vía prellenado
         print("🔎 participant_id (desde part_id):", participant_id)
         email = buscar_correo_en_submissions(participant_id)
         edad = buscar_edad_en_submissions(participant_id)
+        short_id = parsed["data"]["participantes"].get("short_id")
         print("🔎 participant_id:", participant_id)
-        subject = f"Gracias por tu envío desde el formulario {form_id}"
+        subject = f"¡Gracias por completar el Consentimiento Informado del proyecto LAURA!"
         url_p1 = construir_url_part1(participant_id, edad)
         url_p2 = construir_url_part2(participant_id)
         url_p3 = construir_url_part3(participant_id)
@@ -153,6 +156,8 @@ async def receive_webhook(req: Request):
             <p>Hemos recibido correctamente tu consentimiento informado. 🎉</p>
 
             <p>Tu información ha sido registrada en nuestra base de datos de forma <strong>segura y confidencial</strong>.</p>
+            
+            <p>Recordar que tu codigo de participante es: {short_id}</p>
             
             <p> A continuacion podras iniciar la Encuesta Nacional </p>
             
