@@ -48,7 +48,7 @@ def construir_url_part1(valor_id, edad):
         "token": "C$6e3qVTuUep24hjvlfHMPRTudVzhwhmKibeXTSAapZgwBJeGSksmVN7Htle9iYj",
         "part_id": "d[/data/sexual_reproductive_health/part_id_2]",
         "age": "d[/data/general_data/Q1.3_age]"
-        },
+        }
     return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&{formulario['part_id']}={valor_id}&{formulario['age']}={edad}&returnUrl={quote(return_url, safe='')}"
 
 def url_part1_encadenado(part_id, edad):
