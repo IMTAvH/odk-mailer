@@ -145,8 +145,8 @@ async def receive_webhook(req: Request):
         print("🔎 participant_id:", participant_id)
         subject = f"Gracias por tu envío desde el formulario {form_id}"
         url_p1 = construir_url_part1(participant_id, edad)
-        url_p2 = construir_url_part2(participant_id, edad)
-        url_p3 = construir_url_part3(participant_id, edad)
+        url_p2 = construir_url_part2(participant_id)
+        url_p3 = construir_url_part3(participant_id)
         message = f"""
             <p>Hola,</p>
 
