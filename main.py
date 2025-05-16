@@ -4,78 +4,79 @@ from dotenv import load_dotenv
 from mailer import send_email
 from utils import is_duplicate
 from utils import construir_url_consent
-from utils import construir_url_part1
+from utils import construir_url_part1, construir_url_part2, construir_url_part3
 from search_by_odk_api import buscar_correo_en_submissions, buscar_edad_en_submissions
+from fastapi import Request
 
-from fastapi import Request, HTTPException
-from fastapi.responses import RedirectResponse
-from urllib.parse import quote
+# from fastapi import HTTPException
+# from fastapi.responses import RedirectResponse
+# from urllib.parse import quote
 
 load_dotenv()
 
 app = FastAPI()
 
 
-@app.get("/next")
-def next(part_id: str, form: str):
-
-    if not part_id:
-        raise HTTPException(status_code=422, detail="Falta part_id")
-
-
-    # {
-    #     "form_id": "v3NUCyLIXypt4ocz0YbKg5uoxRY5BYD",
-    #     "token": "qXltW8xMvAIRils99XG9IUYvoNtRz53xPcB9V2fEiz6kbQtFOV8swVwZze3x$4EL",
-    #     "part_id": "d[/data/general_health/part_id_5]"
-    # },
-    # Form Part 4
-    # https://odkcentral.upch.edu.pe/-/single/v3NUCyLIXypt4ocz0YbKg5uoxRY5BYD?st=qXltW8xMvAIRils99XG9IUYvoNtRz53xPcB9V2fEiz6kbQtFOV8swVwZze3x$4EL
-
-    # {
-    #     "form_id": "vmngcom1ZaTITHFj5MHfJefN6Oevjk0",
-    #     "token": "xU2nudC!h$gAzcDoe5TcqK5pz4RQfAUN0HqtyHRrEW1oy4mcvfz$rRBsNnQzW0Mn",
-    #     "part_id": "d[/data/personal_hygiene/part_id_4]"
-    # },
-    # Form Part 3
-    # https://odkcentral.upch.edu.pe/-/single/vmngcom1ZaTITHFj5MHfJefN6Oevjk0?st=xU2nudC!h$gAzcDoe5TcqK5pz4RQfAUN0HqtyHRrEW1oy4mcvfz$rRBsNnQzW0Mn
-
-    # {
-    #     "form_id": "fgLy1rY5M1YOeycvuIxqMHsUNBYoZCX",
-    #     "token": "d4YCxBKvsx$tkKOWB6OD0RPijaxIAc1ktxG58KvPKFaQYTRKWNsQUYjTO$aCJW9f",
-    #     "part_id": "d[/data/End/part_id_3]"
-    # },
-    # Form Part 2
-    # https://odkcentral.upch.edu.pe/-/single/fgLy1rY5M1YOeycvuIxqMHsUNBYoZCX?st=d4YCxBKvsx$tkKOWB6OD0RPijaxIAc1ktxG58KvPKFaQYTRKWNsQUYjTO$aCJW9f
-
-
-    # Definir lógica por formulario que se pide
-    if form == "f2":
-        form_id = "fgLy1rY5M1YOeycvuIxqMHsUNBYoZCX"
-        token = "d4YCxBKvsx$tkKOWB6OD0RPijaxIAc1ktxG58KvPKFaQYTRKWNsQUYjTO$aCJW9f"
-        field = "d[/data/End/part_id_3]",
-        next_form = "f3"
-    elif form == "f3":
-        form_id = "vmngcom1ZaTITHFj5MHfJefN6Oevjk0"
-        token = "xU2nudC!h$gAzcDoe5TcqK5pz4RQfAUN0HqtyHRrEW1oy4mcvfz$rRBsNnQzW0Mn"
-        field = "d[/data/personal_hygiene/part_id_4]",
-        next_form = "f4"
-    elif form == "f4":
-        form_id = "v3NUCyLIXypt4ocz0YbKg5uoxRY5BYD"
-        token = "qXltW8xMvAIRils99XG9IUYvoNtRz53xPcB9V2fEiz6kbQtFOV8swVwZze3x$4EL"
-        field = "d[/data/general_health/part_id_5]",
-        next_form = "f5"
-    else:
-        raise HTTPException(status_code=404, detail="Formulario desconocido")
-
-    base = "https://odkcentral.upch.edu.pe/-/single"
-    url = f"{base}/{form_id}?st={token}&{quote(field)}={quote(part_id)}"
-
-    if next_form:
-        # Crear returnUrl para el siguiente paso
-        return_url = f"https://odkcentral.upch.edu.pe:4000/next?part_id={quote(part_id)}&form={next_form}"
-        url += f"&returnUrl={quote(return_url, safe='')}"
-
-    return RedirectResponse(url)
+# @app.get("/next")
+# def next(part_id: str, form: str):
+#
+#     if not part_id:
+#         raise HTTPException(status_code=422, detail="Falta part_id")
+#
+#
+#     # {
+#     #     "form_id": "v3NUCyLIXypt4ocz0YbKg5uoxRY5BYD",
+#     #     "token": "qXltW8xMvAIRils99XG9IUYvoNtRz53xPcB9V2fEiz6kbQtFOV8swVwZze3x$4EL",
+#     #     "part_id": "d[/data/general_health/part_id_5]"
+#     # },
+#     # Form Part 4
+#     # https://odkcentral.upch.edu.pe/-/single/v3NUCyLIXypt4ocz0YbKg5uoxRY5BYD?st=qXltW8xMvAIRils99XG9IUYvoNtRz53xPcB9V2fEiz6kbQtFOV8swVwZze3x$4EL
+#
+#     # {
+#     #     "form_id": "vmngcom1ZaTITHFj5MHfJefN6Oevjk0",
+#     #     "token": "xU2nudC!h$gAzcDoe5TcqK5pz4RQfAUN0HqtyHRrEW1oy4mcvfz$rRBsNnQzW0Mn",
+#     #     "part_id": "d[/data/personal_hygiene/part_id_4]"
+#     # },
+#     # Form Part 3
+#     # https://odkcentral.upch.edu.pe/-/single/vmngcom1ZaTITHFj5MHfJefN6Oevjk0?st=xU2nudC!h$gAzcDoe5TcqK5pz4RQfAUN0HqtyHRrEW1oy4mcvfz$rRBsNnQzW0Mn
+#
+#     # {
+#     #     "form_id": "fgLy1rY5M1YOeycvuIxqMHsUNBYoZCX",
+#     #     "token": "d4YCxBKvsx$tkKOWB6OD0RPijaxIAc1ktxG58KvPKFaQYTRKWNsQUYjTO$aCJW9f",
+#     #     "part_id": "d[/data/End/part_id_3]"
+#     # },
+#     # Form Part 2
+#     # https://odkcentral.upch.edu.pe/-/single/fgLy1rY5M1YOeycvuIxqMHsUNBYoZCX?st=d4YCxBKvsx$tkKOWB6OD0RPijaxIAc1ktxG58KvPKFaQYTRKWNsQUYjTO$aCJW9f
+#
+#
+#     # Definir lógica por formulario que se pide
+#     if form == "f2":
+#         form_id = "fgLy1rY5M1YOeycvuIxqMHsUNBYoZCX"
+#         token = "d4YCxBKvsx$tkKOWB6OD0RPijaxIAc1ktxG58KvPKFaQYTRKWNsQUYjTO$aCJW9f"
+#         field = "d[/data/End/part_id_3]",
+#         next_form = "f3"
+#     elif form == "f3":
+#         form_id = "vmngcom1ZaTITHFj5MHfJefN6Oevjk0"
+#         token = "xU2nudC!h$gAzcDoe5TcqK5pz4RQfAUN0HqtyHRrEW1oy4mcvfz$rRBsNnQzW0Mn"
+#         field = "d[/data/personal_hygiene/part_id_4]",
+#         next_form = "f4"
+#     elif form == "f4":
+#         form_id = "v3NUCyLIXypt4ocz0YbKg5uoxRY5BYD"
+#         token = "qXltW8xMvAIRils99XG9IUYvoNtRz53xPcB9V2fEiz6kbQtFOV8swVwZze3x$4EL"
+#         field = "d[/data/general_health/part_id_5]",
+#         next_form = "f5"
+#     else:
+#         raise HTTPException(status_code=404, detail="Formulario desconocido")
+#
+#     base = "https://odkcentral.upch.edu.pe/-/single"
+#     url = f"{base}/{form_id}?st={token}&{quote(field)}={quote(part_id)}"
+#
+#     if next_form:
+#         # Crear returnUrl para el siguiente paso
+#         return_url = f"https://odkcentral.upch.edu.pe:4000/next?part_id={quote(part_id)}&form={next_form}"
+#         url += f"&returnUrl={quote(return_url, safe='')}"
+#
+#     return RedirectResponse(url)
 
 
 @app.post("/hooks")
@@ -126,7 +127,7 @@ async def receive_webhook(req: Request):
                 </li>
                 <li>Formulario de consentimiento informado:
                     <a href={url_id}>
-                        Acceder a la encuesta
+                        Acceder
                     </a>
                 </li>
             </ol>
@@ -143,7 +144,9 @@ async def receive_webhook(req: Request):
         edad = buscar_edad_en_submissions(participant_id)
         print("🔎 participant_id:", participant_id)
         subject = f"Gracias por tu envío desde el formulario {form_id}"
-        url_p = construir_url_part1(participant_id, edad)
+        url_p1 = construir_url_part1(participant_id, edad)
+        url_p2 = construir_url_part2(participant_id, edad)
+        url_p3 = construir_url_part3(participant_id, edad)
         message = f"""
             <p>Hola,</p>
 
@@ -151,11 +154,21 @@ async def receive_webhook(req: Request):
 
             <p>Tu información ha sido registrada en nuestra base de datos de forma <strong>segura y confidencial</strong>.</p>
             
-            <p> A continuacion podras iniciar la encuesta Nacional </p>
+            <p> A continuacion podras iniciar la Encuesta Nacional </p>
             
-            <li>Formulario de consentimiento informado:
-                <a href={url_p}>
-                    Acceder a la encuesta
+            <li>Formulario de Datos Generales:
+                <a href={url_p1}>
+                    Acceder
+                </a>
+            </li>
+            <li>Formulario de Salud Reproductiva y Mestrual:
+                <a href={url_p2}>
+                    Acceder
+                </a>
+            </li>
+            <li>Formulario de Salud Mental:
+                <a href={url_p3}>
+                    Acceder
                 </a>
             </li>
 
