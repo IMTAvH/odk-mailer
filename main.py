@@ -72,7 +72,7 @@ def next(part_id: str, form: str):
 
     if next_form:
         # Crear returnUrl para el siguiente paso
-        return_url = f"https://odkcentral.upch.edu.pe:4000/next?part_id={quote(part_id)}&form={next_form}"
+        return_url = f"https://odkcentral.upch.edu.pe/next?part_id={quote(part_id)}&form={next_form}"
         url += f"&returnUrl={quote(return_url, safe='')}"
 
     return RedirectResponse(url)
@@ -171,7 +171,9 @@ async def receive_webhook(req: Request):
             <p><img src="https://drive.google.com/uc?export=view&id=109KJ3wBlPtuv5uc1QsM3igm61v6OO00O" alt="Logo LAURA" width="150"/></p>
         """
 
-
+    else:
+        print(f"⚠️ Formulario no manejado: {form_id}")
+        return {"status": "ignored", "message": f"Formulario {form_id} no procesado"}
 
     if email:
         await send_email(subject, message, email)
