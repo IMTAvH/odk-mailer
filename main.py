@@ -122,6 +122,7 @@ async def receive_webhook(req: Request):
                 <p><img src="https://drive.google.com/uc?export=view&id=109KJ3wBlPtuv5uc1QsM3igm61v6OO00O" alt="Logo LAURA" width="150"/></p>
             """
         else:
+            email=None
             pass
 
     else:
