@@ -73,52 +73,56 @@ async def receive_webhook(req: Request):
             <p><img src="https://drive.google.com/uc?export=view&id=109KJ3wBlPtuv5uc1QsM3igm61v6OO00O" alt="Logo LAURA" width="150"/></p>
         """
     elif form_id == "Laura2-piloto-encuesta-ic":
-        participant_id = parsed["data"].get("part_id")  # <-- Aquí está el valor que vino vía prellenado
+        participant_id = parsed["data"]["preamble"].get("part_id")  # <-- Aquí está el valor que vino vía prellenado
+        consentimiento = parsed["data"]["consent"].get("Q0_accept_consent")
         print("🔎 participant_id (desde part_id):", participant_id)
-        email = buscar_correo_en_submissions(participant_id)
-        edad = buscar_edad_en_submissions(participant_id)
-        # short_id = parsed["data"]["participantes"].get("short_id")
-        print("🔎 participant_id:", participant_id)
-        subject = f"¡Gracias por completar el Consentimiento Informado del proyecto LAURA!"
-        url_p1 = construir_url_part1(participant_id, edad)
-        url_p2 = construir_url_part2(participant_id)
-        url_p3 = construir_url_part3(participant_id)
-        message = f"""
-            <p>Hola,</p>
-
-            <p>Hemos recibido correctamente tu consentimiento informado. 🎉</p>
-
-            <p>Tu información ha sido registrada en nuestra base de datos de forma <strong>segura y confidencial</strong>.</p>
-            
-            <p> A continuacion podras iniciar la Encuesta Nacional </p>
-            
-            <li>Formulario de Datos Generales:
-                <a href={url_p1}>
-                    Acceder
-                </a>
-            </li>
-            <li>Formulario de Salud Reproductiva y Mestrual:
-                <a href={url_p2}>
-                    Acceder
-                </a>
-            </li>
-            <li>Formulario de Salud Mental:
-                <a href={url_p3}>
-                    Acceder
-                </a>
-            </li>
-
-           <p><strong>¡Importante!</strong>👀 Esta encuesta Nacional te tomará aproximadamente <strong>50 minutos</strong>, por favor te pedimos que encuentres un momento del día para que puedas responder con calma.</p>
-            
-            <p><strong>¡Próximamente nos pondremos en contacto contigo!</strong> ☺️ Gracias a tus respuestas podremos dar a conocer a nivel nacional los principales problemas de salud que aquejan a la mujer peruana.</p>       
-
-            <p>Muchas gracias por tu participación en el proyecto <strong>LAURA</strong>. 🫶</p>
-
-            <p>Atentamente,<br>
-            Equipo del proyecto LAURA</p>
-
-            <p><img src="https://drive.google.com/uc?export=view&id=109KJ3wBlPtuv5uc1QsM3igm61v6OO00O" alt="Logo LAURA" width="150"/></p>
-        """
+        if consentimiento == "yes":
+            email = buscar_correo_en_submissions(participant_id)
+            edad = buscar_edad_en_submissions(participant_id)
+            # short_id = parsed["data"]["participantes"].get("short_id")
+            print("🔎 participant_id:", participant_id)
+            subject = f"¡Gracias por completar el Consentimiento Informado del proyecto LAURA!"
+            url_p1 = construir_url_part1(participant_id, edad)
+            url_p2 = construir_url_part2(participant_id)
+            url_p3 = construir_url_part3(participant_id)
+            message = f"""
+                <p>Hola,</p>
+    
+                <p>Hemos recibido correctamente tu consentimiento informado. 🎉</p>
+    
+                <p>Tu información ha sido registrada en nuestra base de datos de forma <strong>segura y confidencial</strong>.</p>
+                
+                <p> A continuacion podras iniciar la Encuesta Nacional </p>
+                
+                <li>Formulario de Datos Generales:
+                    <a href={url_p1}>
+                        Acceder
+                    </a>
+                </li>
+                <li>Formulario de Salud Reproductiva y Mestrual:
+                    <a href={url_p2}>
+                        Acceder
+                    </a>
+                </li>
+                <li>Formulario de Salud Mental:
+                    <a href={url_p3}>
+                        Acceder
+                    </a>
+                </li>
+    
+               <p><strong>¡Importante!</strong>👀 Esta encuesta Nacional te tomará aproximadamente <strong>50 minutos</strong>, por favor te pedimos que encuentres un momento del día para que puedas responder con calma.</p>
+                
+                <p><strong>¡Próximamente nos pondremos en contacto contigo!</strong> ☺️ Gracias a tus respuestas podremos dar a conocer a nivel nacional los principales problemas de salud que aquejan a la mujer peruana.</p>       
+    
+                <p>Muchas gracias por tu participación en el proyecto <strong>LAURA</strong>. 🫶</p>
+    
+                <p>Atentamente,<br>
+                Equipo del proyecto LAURA</p>
+    
+                <p><img src="https://drive.google.com/uc?export=view&id=109KJ3wBlPtuv5uc1QsM3igm61v6OO00O" alt="Logo LAURA" width="150"/></p>
+            """
+        else:
+            pass
 
     else:
         print(f"⚠️ Formulario no manejado: {form_id}")
