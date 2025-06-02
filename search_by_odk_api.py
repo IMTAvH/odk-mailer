@@ -88,3 +88,46 @@ def buscar_edad_en_submissions(participant_id):
     print(f"⚠️ No se encontró el participant_id: {participant_id} en ningún submission")
     return None
 
+def buscar_datos_en_entidad_participantes(phone):
+    base_url = os.getenv("ODK_BASE_URL")
+    token = get_odk_token()
+    project_id = os.getenv("ODK_PROJECT_ID", 1)
+    entity_table = "participantes"
+
+    if not all([base_url, token, project_id, entity_table]):
+        print("❌ Faltan datos en el entorno")
+        return None
+
+    headers = {"Authorization": f"Bearer {token}"}
+    base_url = base_url.rstrip("/")
+    list_url = f"{base_url}/v1/projects/{project_id}/datasets/{entity_table}/entities"
+
+    response = requests.get(list_url, headers=headers)
+
+    if response.status_code != 200:
+        print(f"❌ Error al obtener entidades: {response.status_code}")
+        return None
+
+    entities = response.json()
+
+    numero_tel = phone
+    for entity in entities:
+        label = entity.get("currentVersion", {}).get("label")
+        if not label:
+            continue
+        if label == numero_tel:
+            uuid = entity.get("uuid")
+            print(f"✅ Posible entidad encontrada con label: {label} (UUID: {uuid})")
+            entity_url = f"{list_url}/{uuid}"
+            detail_resp = requests.get(entity_url, headers=headers)
+
+            if detail_resp.status_code != 200:
+                print(f"⚠️ No se pudo obtener el detalle de entidad {uuid}")
+                continue
+
+            detail = detail_resp.json()
+            data = detail.get("currentVersion", {}).get("data", {})
+            return data
+
+    print(f"⚠️ No se encontró el telefono: {numero_tel} en entidades")
+    return None

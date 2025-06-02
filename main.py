@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 from mailer import send_email
 from utils import is_duplicate
 from utils import construir_url_consent
-from utils import construir_url_part1, construir_url_part2, construir_url_part3
-from search_by_odk_api import buscar_correo_en_submissions, buscar_edad_en_submissions
+from utils import construir_url_part1, construir_url_part2, construir_url_part3, construir_url_phsample1, construir_url_follow1
+from search_by_odk_api import buscar_correo_en_submissions, buscar_edad_en_submissions, buscar_datos_en_entidad_participantes
 from fastapi import Request
 
 load_dotenv()
@@ -124,6 +124,73 @@ async def receive_webhook(req: Request):
         else:
             email=None
             pass
+
+    elif form_id == "Laura2-piloto-encuesta-p1" or form_id == "Laura2-piloto-encuesta-p2" or form_id == "Laura2-piloto-encuesta-p3":
+        phone = parsed["data"]["preamble"].get("entity_phone")
+        datos = buscar_datos_en_entidad_participantes(phone)
+        if datos.get("complete_p1")=='yes' and datos.get("complete_p2")=='yes' and datos.get("complete_p3")=='yes':
+            email = datos.get("email")
+            subject = f"¡Gracias por completar la Encuesta Nacional del proyecto LAURA!"
+            message = f"""
+                <p>Hola,</p>
+
+                <p>Hemos recibido correctamente los datos de la Encuesta Nacional. 🎉</p>
+
+                <p>Tu información ha sido registrada en nuestra base de datos de forma <strong>segura y confidencial</strong>.</p>
+
+                <p> A continuacion te dejamos instruccion para la siguiente etapa de Seguimiento </p>
+
+                <p><strong>¡Próximamente nos pondremos en contacto contigo!</strong> ☺️ Gracias a tus respuestas podremos dar a conocer a nivel nacional los principales problemas de salud que aquejan a la mujer peruana.</p>       
+
+                <p>Muchas gracias por tu participación en el proyecto <strong>LAURA</strong>. 🫶</p>
+
+                <p>Atentamente,<br>
+                Equipo del proyecto LAURA</p>
+
+                <p><img src="https://drive.google.com/uc?export=view&id=109KJ3wBlPtuv5uc1QsM3igm61v6OO00O" alt="Logo LAURA" width="150"/></p>
+            """
+
+    elif form_id == "Laura2-piloto-agendamiento":
+        if parsed["data"].get("tipo_agendamiento") == 'scheduling' and parsed["data"].get("mes_visita") == 'm1' and parsed["data"].get("numero_visita") == '1':
+            long_id = parsed["data"].get("part_id")
+            urls1 = construir_url_phsample1(long_id)
+            urlf1 = construir_url_follow1(long_id)
+            email = parsed["data"].get("part_email")
+            subject = f"¡Gracias por participar en el Seguimiento del proyecto LAURA!"
+            message = f"""
+                <p>Hola,</p>
+
+                <p>Hemos agendado la primera visita de seguimiento. 🎉</p>
+                
+                <p> A continuacion podras iniciar los formulario.</p>
+                
+                <li>Formulario de Muestra de pH:
+                    <a href={urls1}>
+                        Acceder
+                    </a>
+                </li>
+                
+                <li>Formulario de Seguimiento:
+                    <a href={urlf1}>
+                        Acceder
+                    </a>
+                </li>
+
+                <p><strong>¡Próximamente nos pondremos en contacto contigo!</strong> ☺️ Gracias a tus respuestas podremos dar a conocer a nivel nacional los principales problemas de salud que aquejan a la mujer peruana.</p>       
+
+                <p>Muchas gracias por tu participación en el proyecto <strong>LAURA</strong>. 🫶</p>
+
+                <p>Atentamente,<br>
+                Equipo del proyecto LAURA</p>
+
+                <p><img src="https://drive.google.com/uc?export=view&id=109KJ3wBlPtuv5uc1QsM3igm61v6OO00O" alt="Logo LAURA" width="150"/></p>
+            """
+        else:
+            email = None
+            pass
+
+
+
 
     else:
         print(f"⚠️ Formulario no manejado: {form_id}")

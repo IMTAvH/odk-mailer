@@ -1,6 +1,5 @@
 import requests
 import os
-from urllib.parse import quote
 
 processed_ids = set()
 
@@ -64,5 +63,23 @@ def construir_url_part3(valor_id):
         "form_id": "vmngcom1ZaTITHFj5MHfJefN6Oevjk0",
         "token": "pNFemRmzNQmwZ8hYzdSo3ttz$jFNlIm9PKCcygRm9duzJOC6CJ3vIGvt1NI5dYm4",
         "part_id": "d[/data/preamble/part_id_4]"
+        }
+    return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&{formulario['part_id']}={valor_id}"
+
+def construir_url_phsample1(valor_id):
+    # https://odkcentral.upch.edu.pe/-/single/0PHTXL5alHUVMhbNgRoztWjiUVnnYLH?st=UZQsvlnxcFCxPvrt7rLMRp0nELTJAj23HPG$Nn6eCGyNMLCEQQA09ZHIxJUIJEyh
+    formulario = {
+        "form_id": "0PHTXL5alHUVMhbNgRoztWjiUVnnYLH",
+        "token": "UZQsvlnxcFCxPvrt7rLMRp0nELTJAj23HPG$Nn6eCGyNMLCEQQA09ZHIxJUIJEyh",
+        "part_id": "d[/data/part_id_5]"
+        }
+    return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&{formulario['part_id']}={valor_id}"
+
+def construir_url_follow1(valor_id):
+    # https://odkcentral.upch.edu.pe/-/single/WkF3v61llD6tHnKqUSb0ECx5AewawUR?st=ab58X6zAwGK0WM0V9GkLURyTpmHyXDDug5yngXoEW8FlmIbEFu6EUfDCAvKP4iiU
+    formulario = {
+        "form_id": "WkF3v61llD6tHnKqUSb0ECx5AewawUR",
+        "token": "ab58X6zAwGK0WM0V9GkLURyTpmHyXDDug5yngXoEW8FlmIbEFu6EUfDCAvKP4iiU",
+        "part_id": "d[/data/welcome/part_id_6]"
         }
     return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&{formulario['part_id']}={valor_id}"
