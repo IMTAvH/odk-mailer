@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+import asyncio
 import xmltodict
 from dotenv import load_dotenv
 from mailer import send_email
@@ -105,8 +106,12 @@ async def receive_webhook(req: Request):
 
     elif form_id == "Laura2-piloto-encuesta-p1" or form_id == "Laura2-piloto-encuesta-p2" or form_id == "Laura2-piloto-encuesta-p3":
         phone = parsed["data"]["preamble"].get("entity_phone")
+
+        await asyncio.sleep(2)
+
         datos = buscar_datos_en_entidad_participantes(phone)
         short_id = datos.get("short_id")
+
         if datos.get("complete_p1")=='yes' and datos.get("complete_p2")=='yes' and datos.get("complete_p3")=='yes':
             email = datos.get("email")
             subject = f"¡Gracias por participar en el proyecto Laura!"
