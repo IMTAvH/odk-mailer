@@ -106,14 +106,13 @@ async def receive_webhook(req: Request):
             email=None
             pass
 
-    elif form_id == "Laura2-piloto-encuesta-p1" or form_id == "Laura2-piloto-encuesta-p2" or form_id == "Laura2-piloto-encuesta-p3":
-        await sleep(2)
+    elif form_id == "Laura2-piloto-encuesta-p3":
         phone = parsed["data"]["preamble"].get("entity_phone")
         datos = buscar_datos_en_entidad_participantes(phone)
         print(datos)
 
 
-        if datos.get("complete_p1")=='yes' and datos.get("complete_p2")=='yes' and datos.get("complete_p3")=='yes':
+        if datos.get("complete_p1")=='yes' and datos.get("complete_p2")=='yes':
             short_id = datos.get("short_id")
             email = datos.get("email")
             subject = f"¡Gracias por participar en el proyecto Laura!"
