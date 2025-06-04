@@ -127,6 +127,7 @@ def buscar_datos_en_entidad_participantes(phone):
 
             detail = detail_resp.json()
             data = detail.get("currentVersion", {}).get("data", {})
+            print(data)
             return data
 
     print(f"⚠️ No se encontró el telefono: {numero_tel} en entidades")

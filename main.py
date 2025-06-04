@@ -1,3 +1,5 @@
+from asyncio import sleep
+
 from fastapi import FastAPI, Request
 import asyncio
 import xmltodict
@@ -105,14 +107,14 @@ async def receive_webhook(req: Request):
             pass
 
     elif form_id == "Laura2-piloto-encuesta-p1" or form_id == "Laura2-piloto-encuesta-p2" or form_id == "Laura2-piloto-encuesta-p3":
+        await sleep(2)
         phone = parsed["data"]["preamble"].get("entity_phone")
-
-        await asyncio.sleep(2)
-
         datos = buscar_datos_en_entidad_participantes(phone)
-        short_id = datos.get("short_id")
+        print(datos)
+
 
         if datos.get("complete_p1")=='yes' and datos.get("complete_p2")=='yes' and datos.get("complete_p3")=='yes':
+            short_id = datos.get("short_id")
             email = datos.get("email")
             subject = f"¡Gracias por participar en el proyecto Laura!"
             message = f"""
