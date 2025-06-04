@@ -89,7 +89,7 @@ async def receive_webhook(req: Request):
                     Formulario 1 - Datos Generales: <a href={url_p1}>Acceder</a> - Llena tus respuestas y presiona <strong>enviar</strong>. Ahora continúa con el bloque 2.
                 </li>
                 <li>
-                    Formulario 2 - Salud Reproductiva y Mestrual: <a href={url_p2}>Acceder</a> - Llena tus respuestas y presiona <strong>enviar</strong>. Ahora continúa con el bloque 3.
+                    Formulario 2 - Salud Reproductiva y Menstrual: <a href={url_p2}>Acceder</a> - Llena tus respuestas y presiona <strong>enviar</strong>. Ahora continúa con el bloque 3.
                 </li>
                 <li>
                     Formulario 3 - Salud Mental: <a href={url_p3}>Acceder</a> - Llena tus respuestas y presiona <strong>enviar</strong>, ya terminaste!
