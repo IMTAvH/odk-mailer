@@ -1,10 +1,27 @@
 from dotenv import load_dotenv
+
 load_dotenv()
 
 import os
 import requests
 import xmltodict
-from utils import get_odk_token
+
+def get_odk_token():
+    base_url = os.getenv("ODK_BASE_URL")
+    username = os.getenv("ODK_USERNAME")
+    password = os.getenv("ODK_PASSWORD")
+
+    url = f"{base_url}/v1/sessions"
+    payload = {"email": username, "password": password}
+    response = requests.post(url, json=payload)
+
+    if response.status_code == 200:
+        token = response.json().get("token")
+        print("✅ Token generado.")
+        return token
+    else:
+        print(f"❌ Error al obtener token: {response.status_code} - {response.text}")
+        return None
 
 def buscar_correo_en_submissions(participant_id):
     base_url = os.getenv("ODK_BASE_URL")
