@@ -87,6 +87,28 @@ def construir_url_follow1(valor_id):
         }
     return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&{formulario['part_id']}={valor_id}"
 
+def construir_url_phsample2(valor_id):
+    # Prueba
+    # https://odkcentral.upch.edu.pe/-/single/AkvtvCaGcDuvrYXe5O4C6yBCQeYAhJN?st=Im4GDRjEBy$ejbBk$aaBSr$WEq71U4FgBhvLL02EGnx!gRkSjO6Vs5KRq9pE3G97
+
+    formulario = {
+        "form_id": "AkvtvCaGcDuvrYXe5O4C6yBCQeYAhJN",
+        "token": "Im4GDRjEBy$ejbBk$aaBSr$WEq71U4FgBhvLL02EGnx!gRkSjO6Vs5KRq9pE3G97",
+        "part_id": "d[/data/part_id_5]"
+        }
+    return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&{formulario['part_id']}={valor_id}"
+
+def construir_url_follow2(valor_id):
+    # Prueba
+    # https://odkcentral.upch.edu.pe/-/single/VYZpXcx55EhBcwqmygc9CcvrfoG2C4k?st=JzVMoVwSprUgCR1Ev9RRrI5kMm5DqmPRTaQLi$2ARhNbbicev0haAeGmV4yc6IX0
+
+    formulario = {
+        "form_id": "VYZpXcx55EhBcwqmygc9CcvrfoG2C4k",
+        "token": "JzVMoVwSprUgCR1Ev9RRrI5kMm5DqmPRTaQLi$2ARhNbbicev0haAeGmV4yc6IX0",
+        "part_id": "d[/data/welcome/part_id_6]"
+        }
+    return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&{formulario['part_id']}={valor_id}"
+
 #####################################
 ######## Template de correos ########
 #####################################
@@ -201,12 +223,12 @@ def correo_asignacion_tc(parsed):
                 """
     return email, subject, message
 
-def correo_agendamiento_1(parsed):
+def correo_agendamiento_m1v1(parsed):
     long_id = parsed["data"].get("part_id")
     short_id = long_id[0:6]
     urls1 = construir_url_phsample1(long_id)
     urlf1 = construir_url_follow1(long_id)
-    fecha = parsed["data"].get("fecha_visita")
+    fecha = parsed["data"].get("fecha_visita_m1v1")
     email = parsed["data"].get("part_email")
     subject = f"Proyecto Laura - Bienvenida a la visita 1 de la fase II"
     message = f"""
@@ -218,7 +240,36 @@ def correo_agendamiento_1(parsed):
 
                     <p>La fecha agendada es: <strong>{fecha}</strong></p>
                     
-                    <p>Durante la visita del personal del estudio deberás abrir este correo para poder registrar el valor de tu pH vaginal usando este formulario (abrir <strong>{urls1}</strong>) y para poder llenar tu primera encuesta de seguimiento (abrir <strong>{urlf1}</strong>).</p>       
+                    <p>Durante la visita del personal del estudio deberás abrir este correo para poder registrar el valor de tu pH vaginal usando este formulario (<a href={urls1}><strong>abrir</strong></a>) y para poder llenar tu primera encuesta de seguimiento (<a href={urlf1}><strong>abrir</strong></a>).</p>       
+
+                    <p>Si tienes alguna duda puedes preguntarle a nuestro personal del estudio.</p>
+
+                    <p>Atentamente,<br>
+                    Equipo del proyecto Laura</p>
+
+                    <p><img src="https://drive.google.com/uc?export=view&id=109KJ3wBlPtuv5uc1QsM3igm61v6OO00O" alt="Logo LAURA" width="150"/></p>
+                """
+    return email, subject, message
+
+
+def correo_agendamiento_m1v2(parsed):
+    long_id = parsed["data"].get("part_id")
+    short_id = long_id[0:6]
+    urls2 = construir_url_phsample2(long_id)
+    urlf2 = construir_url_follow2(long_id)
+    fecha = parsed["data"].get("fecha_visita_m1v2")
+    email = parsed["data"].get("part_email")
+    subject = f"Proyecto Laura - Bienvenida a la visita 2 de la fase II"
+    message = f"""
+                    <p>Hola {short_id},</p>
+
+                    <p>Muchas gracias por agendar la fecha de la <strong>segunda visita</strong> del personal del estudio para la toma de tu <strong>primera muestra</strong> para la <strong>fase II</strong> del proyecto Laura 😄</p>
+
+                    <p>¡Estamos muy contentas de contar con tu participación en el Proyecto Laura!</p>
+
+                    <p>La fecha agendada es: <strong>{fecha}</strong></p>
+
+                    <p>Durante la visita del personal del estudio deberás abrir este correo para poder registrar el valor de tu pH vaginal usando este formulario (<a href={urls2}><strong>abrir</strong></a>) y para poder llenar la segunda encuesta de seguimiento (<a href={urlf2}><strong>abrir</strong></a>).</p>       
 
                     <p>Si tienes alguna duda puedes preguntarle a nuestro personal del estudio.</p>
 

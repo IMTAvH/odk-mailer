@@ -3,7 +3,7 @@ from fastapi import Request
 import xmltodict
 from dotenv import load_dotenv
 from mailer import send_email
-from utils import is_duplicate, correo_consentimiento, correo_encuesta_nac, correo_agradecimiento, correo_agendamiento_1, correo_asignacion_tc
+from utils import is_duplicate, correo_consentimiento, correo_encuesta_nac, correo_agradecimiento, correo_asignacion_tc, correo_agendamiento_m1v1, correo_agendamiento_m1v2, correo_agendamiento_m1v3, correo_agendamiento_m2v1, correo_agendamiento_m2v2, correo_agendamiento_m2v3
 from search_by_odk_api import buscar_datos_en_entidad_participantes
 
 load_dotenv()
@@ -42,6 +42,26 @@ async def receive_webhook(req: Request):
             email=None
             pass
 
+    elif form_id == "Laura2-piloto-encuesta-p1":
+        phone = parsed["data"]["preamble"].get("entity_phone")
+        datos = buscar_datos_en_entidad_participantes(phone)
+        if datos.get("complete_p2")=='yes' and datos.get("complete_p3")=='yes':
+            email, subject, message = correo_agradecimiento(datos)
+
+        else:
+            email = None
+            pass
+
+    elif form_id == "Laura2-piloto-encuesta-p2":
+        phone = parsed["data"]["preamble"].get("entity_phone")
+        datos = buscar_datos_en_entidad_participantes(phone)
+        if datos.get("complete_p1")=='yes' and datos.get("complete_p3")=='yes':
+            email, subject, message = correo_agradecimiento(datos)
+
+        else:
+            email = None
+            pass
+
     elif form_id == "Laura2-piloto-encuesta-p3":
         phone = parsed["data"]["preamble"].get("entity_phone")
         datos = buscar_datos_en_entidad_participantes(phone)
@@ -56,8 +76,23 @@ async def receive_webhook(req: Request):
         email, subject, message = correo_asignacion_tc(parsed)
 
     elif form_id == "Laura2-piloto-agendamiento":
-        if parsed["data"].get("tipo_agendamiento") == 'scheduling' and parsed["data"].get("mes_visita") == 'm1' and parsed["data"].get("numero_visita") == '1':
-            email, subject, message = correo_agendamiento_1(parsed)
+        if parsed["data"].get("mes_visita") == 'm1' and parsed["data"].get("numero_visita") == 'v1':
+            email, subject, message = correo_agendamiento_m1v1(parsed)
+
+        elif parsed["data"].get("mes_visita") == 'm1' and parsed["data"].get("numero_visita") == 'v2':
+            email, subject, message = correo_agendamiento_m1v2(parsed)
+
+        elif parsed["data"].get("mes_visita") == 'm1' and parsed["data"].get("numero_visita") == 'v3':
+            email, subject, message = correo_agendamiento_m1v3(parsed)
+
+        elif parsed["data"].get("mes_visita") == 'm2' and parsed["data"].get("numero_visita") == 'v1':
+            email, subject, message = correo_agendamiento_m2v1(parsed)
+
+        elif parsed["data"].get("mes_visita") == 'm2' and parsed["data"].get("numero_visita") == 'v2':
+            email, subject, message = correo_agendamiento_m2v2(parsed)
+
+        elif parsed["data"].get("mes_visita") == 'm2' and parsed["data"].get("numero_visita") == 'v3':
+            email, subject, message = correo_agendamiento_m2v3(parsed)
 
         else:
             email = None
