@@ -77,6 +77,7 @@ async def receive_webhook(req: Request):
 
     elif form_id == "Laura2-piloto-agendamiento":
         if parsed["data"].get("mes_visita") == 'm1' and parsed["data"].get("numero_visita") == 'v1':
+            print(parsed)
             email, subject, message = correo_agendamiento_m1v1(parsed)
 
         elif parsed["data"].get("mes_visita") == 'm1' and parsed["data"].get("numero_visita") == 'v2':

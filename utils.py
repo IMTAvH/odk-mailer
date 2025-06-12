@@ -225,11 +225,13 @@ def correo_asignacion_tc(parsed):
 
 def correo_agendamiento_m1v1(parsed):
     long_id = parsed["data"].get("part_id")
+    print(long_id)
     short_id = long_id[0:6]
     urls1 = construir_url_phsample1(long_id)
     urlf1 = construir_url_follow1(long_id)
     fecha = parsed["data"].get("fecha_visita_m1v1")
     email = parsed["data"].get("part_email")
+    print(email)
     subject = f"Proyecto Laura - Bienvenida a la visita 1 de la fase II"
     message = f"""
                     <p>Hola {short_id},</p>
