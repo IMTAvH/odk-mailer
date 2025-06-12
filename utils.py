@@ -281,3 +281,116 @@ def correo_agendamiento_m1v2(parsed):
                     <p><img src="https://drive.google.com/uc?export=view&id=109KJ3wBlPtuv5uc1QsM3igm61v6OO00O" alt="Logo LAURA" width="150"/></p>
                 """
     return email, subject, message
+
+def correo_agendamiento_m1v3(parsed):
+    long_id = parsed["data"].get("part_id")
+    short_id = long_id[0:6]
+    urls2 = construir_url_phsample2(long_id)
+    urlf2 = construir_url_follow2(long_id)
+    fecha = parsed["data"].get("fecha_visita_m1v2")
+    email = parsed["data"].get("part_email")
+    subject = f"Proyecto Laura - Bienvenida a la visita 2 de la fase II"
+    message = f"""
+                    <p>Hola {short_id},</p>
+
+                    <p>Muchas gracias por agendar la fecha de la <strong>segunda visita</strong> del personal del estudio para la toma de tu <strong>primera muestra</strong> para la <strong>fase II</strong> del proyecto Laura 😄</p>
+
+                    <p>¡Estamos muy contentas de contar con tu participación en el Proyecto Laura!</p>
+
+                    <p>La fecha agendada es: <strong>{fecha}</strong></p>
+
+                    <p>Durante la visita del personal del estudio deberás abrir este correo para poder registrar el valor de tu pH vaginal usando este formulario (<a href={urls2}><strong>abrir</strong></a>) y para poder llenar la segunda encuesta de seguimiento (<a href={urlf2}><strong>abrir</strong></a>).</p>       
+
+                    <p>Si tienes alguna duda puedes preguntarle a nuestro personal del estudio.</p>
+
+                    <p>Atentamente,<br>
+                    Equipo del proyecto Laura</p>
+
+                    <p><img src="https://drive.google.com/uc?export=view&id=109KJ3wBlPtuv5uc1QsM3igm61v6OO00O" alt="Logo LAURA" width="150"/></p>
+                """
+    return email, subject, message
+
+def correo_agendamiento_m2v1(parsed):
+    long_id = parsed["data"].get("part_id")
+    short_id = long_id[0:6]
+    urls2 = construir_url_phsample2(long_id)
+    urlf2 = construir_url_follow2(long_id)
+    fecha = parsed["data"].get("fecha_visita_m1v2")
+    email = parsed["data"].get("part_email")
+    subject = f"Proyecto Laura - Bienvenida a la visita 2 de la fase II"
+    message = f"""
+                    <p>Hola {short_id},</p>
+
+                    <p>Muchas gracias por agendar la fecha de la <strong>segunda visita</strong> del personal del estudio para la toma de tu <strong>primera muestra</strong> para la <strong>fase II</strong> del proyecto Laura 😄</p>
+
+                    <p>¡Estamos muy contentas de contar con tu participación en el Proyecto Laura!</p>
+
+                    <p>La fecha agendada es: <strong>{fecha}</strong></p>
+
+                    <p>Durante la visita del personal del estudio deberás abrir este correo para poder registrar el valor de tu pH vaginal usando este formulario (<a href={urls2}><strong>abrir</strong></a>) y para poder llenar la segunda encuesta de seguimiento (<a href={urlf2}><strong>abrir</strong></a>).</p>       
+
+                    <p>Si tienes alguna duda puedes preguntarle a nuestro personal del estudio.</p>
+
+                    <p>Atentamente,<br>
+                    Equipo del proyecto Laura</p>
+
+                    <p><img src="https://drive.google.com/uc?export=view&id=109KJ3wBlPtuv5uc1QsM3igm61v6OO00O" alt="Logo LAURA" width="150"/></p>
+                """
+    return email, subject, message
+
+def correo_agendamiento_m2v2(parsed):
+    long_id = parsed["data"].get("part_id")
+    short_id = long_id[0:6]
+    urls2 = construir_url_phsample2(long_id)
+    urlf2 = construir_url_follow2(long_id)
+    fecha = parsed["data"].get("fecha_visita_m1v2")
+    email = parsed["data"].get("part_email")
+    subject = f"Proyecto Laura - Bienvenida a la visita 2 de la fase II"
+    message = f"""
+                    <p>Hola {short_id},</p>
+
+                    <p>Muchas gracias por agendar la fecha de la <strong>segunda visita</strong> del personal del estudio para la toma de tu <strong>primera muestra</strong> para la <strong>fase II</strong> del proyecto Laura 😄</p>
+
+                    <p>¡Estamos muy contentas de contar con tu participación en el Proyecto Laura!</p>
+
+                    <p>La fecha agendada es: <strong>{fecha}</strong></p>
+
+                    <p>Durante la visita del personal del estudio deberás abrir este correo para poder registrar el valor de tu pH vaginal usando este formulario (<a href={urls2}><strong>abrir</strong></a>) y para poder llenar la segunda encuesta de seguimiento (<a href={urlf2}><strong>abrir</strong></a>).</p>       
+
+                    <p>Si tienes alguna duda puedes preguntarle a nuestro personal del estudio.</p>
+
+                    <p>Atentamente,<br>
+                    Equipo del proyecto Laura</p>
+
+                    <p><img src="https://drive.google.com/uc?export=view&id=109KJ3wBlPtuv5uc1QsM3igm61v6OO00O" alt="Logo LAURA" width="150"/></p>
+                """
+    return email, subject, message
+
+def correo_agendamiento_m2v3(parsed):
+    long_id = parsed["data"].get("part_id")
+    short_id = long_id[0:6]
+    urls2 = construir_url_phsample2(long_id)
+    urlf2 = construir_url_follow2(long_id)
+    fecha = parsed["data"].get("fecha_visita_m1v2")
+    email = parsed["data"].get("part_email")
+    subject = f"Proyecto Laura - Bienvenida a la visita 2 de la fase II"
+    message = f"""
+                    <p>Hola {short_id},</p>
+
+                    <p>Muchas gracias por agendar la fecha de la <strong>segunda visita</strong> del personal del estudio para la toma de tu <strong>primera muestra</strong> para la <strong>fase II</strong> del proyecto Laura 😄</p>
+
+                    <p>¡Estamos muy contentas de contar con tu participación en el Proyecto Laura!</p>
+
+                    <p>La fecha agendada es: <strong>{fecha}</strong></p>
+
+                    <p>Durante la visita del personal del estudio deberás abrir este correo para poder registrar el valor de tu pH vaginal usando este formulario (<a href={urls2}><strong>abrir</strong></a>) y para poder llenar la segunda encuesta de seguimiento (<a href={urlf2}><strong>abrir</strong></a>).</p>       
+
+                    <p>Si tienes alguna duda puedes preguntarle a nuestro personal del estudio.</p>
+
+                    <p>Atentamente,<br>
+                    Equipo del proyecto Laura</p>
+
+                    <p><img src="https://drive.google.com/uc?export=view&id=109KJ3wBlPtuv5uc1QsM3igm61v6OO00O" alt="Logo LAURA" width="150"/></p>
+                """
+    return email, subject, message
+
