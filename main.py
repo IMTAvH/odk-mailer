@@ -4,7 +4,7 @@ import xmltodict
 from dotenv import load_dotenv
 from mailer import send_email
 from utils import is_duplicate, correo_consentimiento, correo_encuesta_nac, correo_agradecimiento, correo_asignacion_tc, correo_agendamiento_m1v1, correo_agendamiento_m1v2, correo_agendamiento_m1v3, correo_agendamiento_m2v1, correo_agendamiento_m2v2, correo_agendamiento_m2v3
-from search_by_odk_api import buscar_datos_en_entidad_participantes
+from search_by_odk_api import buscar_submissions_en_p1, buscar_submissions_en_p2, buscar_submissions_en_p3
 
 load_dotenv()
 
@@ -14,7 +14,6 @@ app = FastAPI()
 async def receive_webhook(req: Request):
     body = await req.json()
     print("📩 Webhook recibido")
-    print("ACTUALIZADOOO")
     print("📄 body:", body)
     raw_xml = body.get("data", {}).get("xml")
 
@@ -40,34 +39,43 @@ async def receive_webhook(req: Request):
             email, subject, message = correo_encuesta_nac(participant_id, parsed)
 
         else:
+            print("Participante no acepto el consentimiento informado")
             email=None
-            pass
 
     elif form_id == "Laura2-piloto-encuesta-p1":
-        phone = parsed["data"]["preamble"].get("entity_phone")
-        datos = buscar_datos_en_entidad_participantes(phone)
-        if datos.get("complete_p2")=='yes' and datos.get("complete_p3")=='yes':
-            email, subject, message = correo_agradecimiento(datos)
+        # phone = parsed["data"]["preamble"].get("entity_phone")
+        # datos = buscar_datos_en_entidad_participantes(phone)
+        participant_id = parsed["data"]["preamble"].get("part_id_2")
+        complete_p2 = buscar_submissions_en_p2(participant_id)
+        complete_p3 = buscar_submissions_en_p3(participant_id)
+        if complete_p2=='yes' and complete_p3=='yes':
+            email, subject, message = correo_agradecimiento(parsed)
 
         else:
             email = None
             pass
 
     elif form_id == "Laura2-piloto-encuesta-p2":
-        phone = parsed["data"]["preamble"].get("entity_phone")
-        datos = buscar_datos_en_entidad_participantes(phone)
-        if datos.get("complete_p1")=='yes' and datos.get("complete_p3")=='yes':
-            email, subject, message = correo_agradecimiento(datos)
+        # phone = parsed["data"]["preamble"].get("entity_phone")
+        # datos = buscar_datos_en_entidad_participantes(phone)
+        participant_id = parsed["data"]["preamble"].get("part_id_3")
+        complete_p1 = buscar_submissions_en_p1(participant_id)
+        complete_p3 = buscar_submissions_en_p3(participant_id)
+        if complete_p1=='yes' and complete_p3=='yes':
+            email, subject, message = correo_agradecimiento(parsed)
 
         else:
             email = None
             pass
 
     elif form_id == "Laura2-piloto-encuesta-p3":
-        phone = parsed["data"]["preamble"].get("entity_phone")
-        datos = buscar_datos_en_entidad_participantes(phone)
-        if datos.get("complete_p1")=='yes' and datos.get("complete_p2")=='yes':
-            email, subject, message = correo_agradecimiento(datos)
+        # phone = parsed["data"]["preamble"].get("entity_phone")
+        # datos = buscar_datos_en_entidad_participantes(phone)
+        participant_id = parsed["data"]["preamble"].get("part_id_4")
+        complete_p1 = buscar_submissions_en_p1(participant_id)
+        complete_p2 = buscar_submissions_en_p2(participant_id)
+        if complete_p1=='yes' and complete_p2=='yes':
+            email, subject, message = correo_agradecimiento(parsed)
 
         else:
             email = None
@@ -105,9 +113,10 @@ async def receive_webhook(req: Request):
         return {"status": "ignored", "message": f"Formulario {form_id} no procesado"}
 
     if email:
+        print(f"✅ Enviando correo a {email} (ID: {instance_id})")
         await send_email(subject=subject, html_message=message, recipient=email)
-        print(f"✅ Email sent to {email} (ID: {instance_id})")
+        print(f"✅ Correo enviado a {email}")
     else:
-        print(f"⚠️ No se encontró correo válido para ID: {instance_id}")
+        print(f"⚠️ No se encontró correo para ID: {instance_id}")
 
     return {"status": "ok"}

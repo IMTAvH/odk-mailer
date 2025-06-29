@@ -1,7 +1,3 @@
-import requests
-import os
-from search_by_odk_api import buscar_correo_en_submissions, buscar_edad_en_submissions, buscar_datos_en_entidad_participantes
-
 processed_ids = set()
 
 def is_duplicate(instance_id: str) -> bool:
@@ -25,7 +21,7 @@ def construir_url_consent(valor_id):
         }
     return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&d[/data/preamble/part_id]={valor_id}"
 
-def construir_url_part1(valor_id, edad):
+def construir_url_part1(valor_id):
 
     # Prueba
     # https://odkcentral.upch.edu.pe/-/single/oJaqbizarAl2a5ITzH2YsX2gjzETtZc?st=Ai6eTLM1bVT0MnYHivkTxXejfKiJLISTiexXD6hZF9rLr39ilDt6PS$n0zV4VbAG
@@ -34,10 +30,10 @@ def construir_url_part1(valor_id, edad):
     formulario = {
         "form_id": "guiLDqa7lfyyWCBhv9k2AWvqqMuPni6",
         "token": "Zm78egptTVNqykyl2UY57k8RCh5n9l6YBilieqsg2Z0jtGuXrg2OcY$IPTwARukQ",
-        "part_id": "d[/data/preamble/part_id_2]",
-        "age": "d[/data/general_data/Q1.3_age]"
+        "part_id": "d[/data/preamble/part_id_2]"
+        # "age": "d[/data/general_data/Q1.3_age]"
         }
-    return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&{formulario['part_id']}={valor_id}&{formulario['age']}={edad}"
+    return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&{formulario['part_id']}={valor_id}"
 
 def construir_url_part2(valor_id):
 
@@ -142,16 +138,18 @@ def correo_consentimiento(parsed):
     return email, subject, message
 
 def correo_encuesta_nac(participant_id, parsed):
-    email = buscar_correo_en_submissions(participant_id)
-    edad = buscar_edad_en_submissions(participant_id)
-    phone = parsed["data"]["preamble"].get("entity_phone")
-    datos = buscar_datos_en_entidad_participantes(phone)
-    short_id = datos.get("short_id")
-    print("🔎 participant_id:", participant_id)
-    subject = f"¡Gracias por completar el Consentimiento Informado del proyecto Laura!"
-    url_p1 = construir_url_part1(participant_id, edad)
+    # email = buscar_correo_en_submissions(participant_id)
+    # edad = buscar_edad_en_submissions(participant_id)
+    email = parsed["data"]["preamble"].get("entity_email")
+    short_id = parsed["data"]["preamble"].get("entity_id")
+    # phone = parsed["data"]["preamble"].get("entity_phone")
+    # datos = buscar_datos_en_entidad_participantes(phone)
+    # short_id = datos.get("short_id")
+    url_p1 = construir_url_part1(participant_id)
     url_p2 = construir_url_part2(participant_id)
     url_p3 = construir_url_part3(participant_id)
+    # print("🔎 participant_id:", participant_id)
+    subject = f"¡Gracias por completar el Consentimiento Informado del proyecto Laura!"
     message = f"""
                     <p>Hola {short_id},</p>
 
@@ -181,9 +179,11 @@ def correo_encuesta_nac(participant_id, parsed):
                 """
     return email, subject, message
 
-def correo_agradecimiento(datos):
-    short_id = datos.get("short_id")
-    email = datos.get("email")
+def correo_agradecimiento(parsed):
+    # short_id = datos.get("short_id")
+    short_id = parsed["data"]["preamble"].get("entity_short_id")
+    # email = datos.get("email")
+    email = parsed["data"]["preamble"].get("entity_email")
     subject = f"¡Gracias por participar en el proyecto Laura!"
     message = f"""
                     <p>Hola {short_id},</p>
