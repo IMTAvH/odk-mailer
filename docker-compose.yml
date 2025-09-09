@@ -1,0 +1,23 @@
+services:
+  mailer:
+    image: odk-mailer:latest
+    ports:
+      - "4000:4000"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis-ODK-Mailer
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    command: redis-server --appendonly yes --appendfsync everysec
+
+volumes:
+  redis_data:

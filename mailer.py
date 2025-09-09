@@ -9,7 +9,7 @@ def notify_failure(original_recipient, subject, error_message):
         msg = MIMEMultipart("alternative")
         msg["Subject"] = f"❌ Error al enviar correo a {original_recipient}"
         msg["From"] = os.getenv("EMAIL_FROM")
-        msg["To"] = "renato.cava@upch.pe"
+        msg["To"] = "example@upch.pe"
 
         body = f"""
         <html>

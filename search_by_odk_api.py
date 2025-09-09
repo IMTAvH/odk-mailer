@@ -138,15 +138,16 @@ def buscar_submissions_en_p1(participant_id):
 
         try:
             parsed = xmltodict.parse(xml_resp.text)
-            data = parsed["data"]["preamble"]
+            data = parsed["data"]
             if data.get("part_id_2") == participant_id:
                 print(f"✅ Participante encontrada")
-                print(f"✅ EN P1: {data['complete_p1']}")
-                return data["complete_p1"]
+                complete_p1 = parsed["data"].get("complete_p1") 
+                print(f"✅ EN P1: {complete_p1}") # ❌ complete_p1 no está en preamble
+                return complete_p1
         except Exception:
             continue
 
-    print(f"⚠️ No se encontró el participant_id: {participant_id} en ningún submission")
+    print(f"⚠️ No se encontró el participant_id: {participant_id} en ningún submission_1")
     return None
 
 def buscar_submissions_en_p2(participant_id):
@@ -188,7 +189,7 @@ def buscar_submissions_en_p2(participant_id):
         except Exception:
             continue
 
-    print(f"⚠️ No se encontró el participant_id: {participant_id} en ningún submission")
+    print(f"⚠️ No se encontró el participant_id: {participant_id} en ningún submission_2")
     return None
 
 def buscar_submissions_en_p3(participant_id):
@@ -230,7 +231,7 @@ def buscar_submissions_en_p3(participant_id):
         except Exception:
             continue
 
-    print(f"⚠️ No se encontró el participant_id: {participant_id} en ningún submission")
+    print(f"⚠️ No se encontró el participant_id: {participant_id} en ningún submission_3")
     return None
 
 def buscar_datos_en_entidad_participantes(phone):

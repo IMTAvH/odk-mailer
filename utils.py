@@ -6,60 +6,26 @@ def is_duplicate(instance_id: str) -> bool:
     processed_ids.add(instance_id)
     return False
 
+'''
+def construir_url_preregistro(valor_id):
+    return f"https://odk4.jellbru.xyz/f/GEvyfPxt5FbnNDeXQhbfKBMY5kH59el?st=TuUMvQ6vSUtyfSyo2RhMVj0T!F1seywiqNto77VjOIJArUlrqOiOfds9UFE1Qnxl&d[/data/preamble/part_id]={valor_id}"
+
 def construir_url_consent(valor_id):
-    # valor_codificado = quote_plus(valor_id)  # para escapar caracteres especiales
+    return f"https://odk4.jellbru.xyz/f/WXllZxnco0cb7nM5aZ6vIxMfhxZyF0q?st=E2tH6V8XqTWsp9XtQqSE0lFyI8MG38CoQVSkiTdcywzqa3ibvD4fhS5E5$RMM0mX&d[/data/preamble/part_id]={valor_id}"
+'''
+    
+def construir_url_encuesta_Nacional_Completa(valor_id):
+    return f"https://odk4.jellbru.xyz/f/7c8uSPg5izDihYBtol4GGn2eRphkImD?st=Ba4m6dV01NDs2wwze1nzNphV9fYT3J0zFgC5clHHeVYZBn2guomnAimYZGDdsC3G&d[/data/preamble/part_id]={valor_id}"
 
-    # Prueba
-    # https://odkcentral.upch.edu.pe/-/single/ganT9xIuyBEkCmQ1mRY8cpeIWWzxhi8?st=YlRK8XkXCJsl3aX0uCcbawjukW8hZZewEd8hppK1H76bWMnzwuIyC9OcIgIwzdYs
-
-    # Form consentimiento informado
-    # https://odkcentral.upch.edu.pe/-/single/OPSyaTGS200C13abNqM1Pk8NLj3vAMT?st=DmtEtXeyGB!lZM1UXm98nYTvQSuzFDJE2NAscyeT5aTdeEHqe3eIP!2aVdrSmT9i
-
-    formulario = {
-            "form_id": "OPSyaTGS200C13abNqM1Pk8NLj3vAMT",
-            "token": "DmtEtXeyGB!lZM1UXm98nYTvQSuzFDJE2NAscyeT5aTdeEHqe3eIP!2aVdrSmT9i"
-        }
-    return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&d[/data/preamble/part_id]={valor_id}"
-
+'''
 def construir_url_part1(valor_id):
-
-    # Prueba
-    # https://odkcentral.upch.edu.pe/-/single/oJaqbizarAl2a5ITzH2YsX2gjzETtZc?st=Ai6eTLM1bVT0MnYHivkTxXejfKiJLISTiexXD6hZF9rLr39ilDt6PS$n0zV4VbAG
-
-    # https://odkcentral.upch.edu.pe/-/single/guiLDqa7lfyyWCBhv9k2AWvqqMuPni6?st=Zm78egptTVNqykyl2UY57k8RCh5n9l6YBilieqsg2Z0jtGuXrg2OcY$IPTwARukQ
-    formulario = {
-        "form_id": "guiLDqa7lfyyWCBhv9k2AWvqqMuPni6",
-        "token": "Zm78egptTVNqykyl2UY57k8RCh5n9l6YBilieqsg2Z0jtGuXrg2OcY$IPTwARukQ",
-        "part_id": "d[/data/preamble/part_id_2]"
-        # "age": "d[/data/general_data/Q1.3_age]"
-        }
-    return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&{formulario['part_id']}={valor_id}"
+    return f"https://odk4.jellbru.xyz/f/955ZV2HoN2cizrNF3O5x1RiLqIhsm61?st=th!veiIAv$TyNpcpkGBwP$cg1Ztvl1GWqXl62pjNLHMht1N8HxbyISeamF9CaUUo&d[/data/preamble/part_id_2]={valor_id}"
 
 def construir_url_part2(valor_id):
-
-    # Prueba
-    # https://odkcentral.upch.edu.pe/-/single/fgLy1rY5M1YOeycvuIxqMHsUNBYoZCX?st=l65vr7s7G80yoQAWHGnWXHOIWT!JeudSgB6CfxhOMIow4LK7rirRypW!mExW!0g2
-
-    # https://odkcentral.upch.edu.pe/-/single/xZI6VypZiTI71JQ1YlzKBDsqG6ahzKv?st=UZk8rikW3mRRn3Ic7UidcfvWb3$uNeK0oZkIvi0JGUGSRufhyv1FzVzCt7BbFUkW
-    formulario = {
-        "form_id": "xZI6VypZiTI71JQ1YlzKBDsqG6ahzKv",
-        "token": "UZk8rikW3mRRn3Ic7UidcfvWb3$uNeK0oZkIvi0JGUGSRufhyv1FzVzCt7BbFUkW",
-        "part_id": "d[/data/preamble/part_id_3]"
-        }
-    return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&{formulario['part_id']}={valor_id}"
+    return f"https://odk4.jellbru.xyz/f/bbbp6esbv53vnvA794y79duCN5mDRSI?st=u8QSpGo9wkEUiZ3ezo!mzJhDJCSABfY!!tWV8Nxp!rHNa4GssyvvF67Nivq2fzdl&d[/data/preamble/part_id_3]={valor_id}"
 
 def construir_url_part3(valor_id):
-
-    # Prueba
-    # https://odkcentral.upch.edu.pe/-/single/vmngcom1ZaTITHFj5MHfJefN6Oevjk0?st=pNFemRmzNQmwZ8hYzdSo3ttz$jFNlIm9PKCcygRm9duzJOC6CJ3vIGvt1NI5dYm4
-
-    # https://odkcentral.upch.edu.pe/-/single/CvCLsSXXVpoL537Bati0fXXrFIcj8MJ?st=Gp6hXKGnARJC7f4X4ybzXHQYt2VGIh!FPiss8N$MKLrXzZ69oHWmv8segsPNCp5u
-    formulario = {
-        "form_id": "CvCLsSXXVpoL537Bati0fXXrFIcj8MJ",
-        "token": "Gp6hXKGnARJC7f4X4ybzXHQYt2VGIh!FPiss8N$MKLrXzZ69oHWmv8segsPNCp5u",
-        "part_id": "d[/data/preamble/part_id_4]"
-        }
-    return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&{formulario['part_id']}={valor_id}"
+    return f"https://odk4.jellbru.xyz/f/JmecdlJqGfThdu8C2YoHd3dPFUoKAnV?st=sf11SHymo7kqK6jHAakAypIYkFPJ8rCR95NGBKaXChnP224W15FQTD7ok!oi7Lf1&d[/data/preamble/part_id_4]={valor_id}"
 
 def construir_url_phsample1(valor_id):
     # Prueba
@@ -105,9 +71,12 @@ def construir_url_follow2(valor_id):
         }
     return f"https://odkcentral.upch.edu.pe/-/single/{formulario['form_id']}?st={formulario['token']}&{formulario['part_id']}={valor_id}"
 
+'''
+
 #####################################
 ######## Template de correos ########
 #####################################
+'''
 def correo_consentimiento(parsed):
     email = parsed["data"]["participantes"].get("correo")
     id_participant = parsed["data"]["participantes"].get("participante_id")
@@ -136,38 +105,38 @@ def correo_consentimiento(parsed):
             """
 
     return email, subject, message
-
-def correo_encuesta_nac(participant_id, parsed):
+'''
+    
+def correo_encuesta_nac(parsed):
     # email = buscar_correo_en_submissions(participant_id)
     # edad = buscar_edad_en_submissions(participant_id)
-    email = parsed["data"]["preamble"].get("entity_email")
-    short_id = parsed["data"]["preamble"].get("entity_id")
+    #email = parsed["data"].get("entity_email")
+    #short_id = parsed["data"].get("entity_short_id")
     # phone = parsed["data"]["preamble"].get("entity_phone")
     # datos = buscar_datos_en_entidad_participantes(phone)
     # short_id = datos.get("short_id")
-    url_p1 = construir_url_part1(participant_id)
-    url_p2 = construir_url_part2(participant_id)
-    url_p3 = construir_url_part3(participant_id)
+    #url_enc = construir_url_part1(participant_id)
+    #url_p2 = construir_url_part2(participant_id)
+    #url_p3 = construir_url_part3(participant_id)
     # print("🔎 participant_id:", participant_id)
-    subject = f"¡Gracias por completar el Consentimiento Informado del proyecto Laura!"
+
+    email = parsed["data"]["participantes"].get("correo")
+    id_participant = parsed["data"]["participantes"].get("participante_id")
+    short_id = parsed["data"]["participantes"].get("short_id")
+    url_enc = construir_url_encuesta_Nacional_Completa(id_participant)
+    subject = f"¡Gracias por completar el pre registro del proyecto Laura!"
     message = f"""
-                    <p>Hola {short_id},</p>
 
-                    <p>Hemos recibido tu consentimiento informado para participar en este estudio. 🎉</p>
+                    <p>Hola, gracias por tu interés en participar en el proyecto Laura.</p>
 
-                    <p>Ya podemos empezar con la <strong>Encuesta Nacional</strong>, la que hemos dividido en 3 bloques.</p>
+                    <p>Ahora  que has completado el formulario de pre-registro, hemos generado un código de participante para tí</p>
 
-                    <p><strong>¡Importante!</strong>👀 Una vez que hayas iniciado cada bloque, el sistema solo guarda las respuestas cuando lo hayas terminado y <strong>enviado</strong>, por eso te pedimos que destines un momento del día para completarlo. Si sales antes de completarlo podrías perder lo que has avanzado.</p>
+                    <p>{short_id}</p>
 
+                    <p>Ya podemos empezar con la <strong>Encuesta Nacional</strong></p>
 
                     <li>
-                        Formulario 1 - Datos Generales: <a href={url_p1}>Acceder</a> - Llena tus respuestas y presiona <strong>enviar</strong>. Ahora continúa con el bloque 2.
-                    </li>
-                    <li>
-                        Formulario 2 - Salud Reproductiva y Menstrual: <a href={url_p2}>Acceder</a> - Llena tus respuestas y presiona <strong>enviar</strong>. Ahora continúa con el bloque 3.
-                    </li>
-                    <li>
-                        Formulario 3 - Salud Mental: <a href={url_p3}>Acceder</a> - Llena tus respuestas y presiona <strong>enviar</strong>, ya terminaste!
+                        Formulario Principal: <a href={url_enc}>Acceder</a> - Llena tus respuestas y presiona <strong>enviar</strong>.
                     </li>
 
                     <p>Muchas gracias por tu participación en el proyecto <strong>Laura</strong>. 🫶</p>
@@ -181,9 +150,10 @@ def correo_encuesta_nac(participant_id, parsed):
 
 def correo_agradecimiento(parsed):
     # short_id = datos.get("short_id")
-    short_id = parsed["data"]["preamble"].get("entity_short_id")
+    short_id = parsed["data"]["preamble"]["entity_details"].get("short_id")
     # email = datos.get("email")
-    email = parsed["data"]["preamble"].get("entity_email")
+    #email = parsed["data"]["preamble"].get("entity_email")
+    #email = buscar_correo_en_submissions(participant_id)
     subject = f"¡Gracias por participar en el proyecto Laura!"
     message = f"""
                     <p>Hola {short_id},</p>
@@ -199,7 +169,9 @@ def correo_agradecimiento(parsed):
 
                     <p><img src="https://drive.google.com/uc?export=view&id=109KJ3wBlPtuv5uc1QsM3igm61v6OO00O" alt="Logo LAURA" width="150"/></p>
                 """
-    return email, subject, message
+    return subject, message
+
+'''
 
 def correo_asignacion_tc(parsed):
     email = parsed['data'].get('email')
@@ -394,3 +366,4 @@ def correo_agendamiento_m2v3(parsed):
                 """
     return email, subject, message
 
+'''
