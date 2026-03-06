@@ -20,8 +20,8 @@ def get_preregistro_backup_email(
 ):
     project_name = project_name or "Proyecto"
     handlers = {
-        "10": correo_encuesta_nac_backup,
-        "9": correo_preregistro_backup_imvaha,
+        "5": correo_encuesta_nac_backup,
+        "7": correo_preregistro_backup_imvaha,
     }
     template_fn = handlers.get(str(project_id))
     if not template_fn:
@@ -37,8 +37,8 @@ def get_preregistro_backup_email(
 
 def get_reminder_email(participante, project_id):
     handlers = {
-        "10": correo_recordatorio,
-        "9": correo_recordatorio_imvaha,
+        "5": correo_recordatorio,
+        "7": correo_recordatorio_imvaha,
     }
     template_fn = handlers.get(str(project_id))
     if not template_fn:
