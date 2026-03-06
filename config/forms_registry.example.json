@@ -1,0 +1,38 @@
+{
+  "routes": [
+    {
+      "project_id": "id_proyecto",
+      "form_id": "nombre_formulario",
+      "handler": "nombre_funcion_handler",
+      "project_name": "nombre_proyecto",
+      "next_form_url": "https://example.com/laura/encuesta-principal",
+      "reminder_enabled": true,
+      "reminder_url": "https://example.com/laura/encuesta-principal"
+    },
+    {
+      "project_id": "id_proyecto",
+      "form_id": "nombre_formulario",
+      "handler": "nombre_funcion_handler",
+      "project_name": "nombre_proyecto"
+    },
+    {
+      "project_id": "id_proyecto",
+      "form_id": "nombre_formulario",
+      "handler": "nombre_funcion_handler",
+      "project_name": "nombre_proyecto",
+      "reminder_enabled": false,
+      "email_optional": true
+    }
+  ],
+  "projects": [
+    {
+      "project_id": "10",
+      "project_name": "Laura"
+    },
+    {
+      "project_id": "9",
+      "project_name": "IMVAHA",
+      "cc": ["example@email.com"]
+    }
+  ]
+}
