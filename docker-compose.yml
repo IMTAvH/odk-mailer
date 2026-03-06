@@ -1,6 +1,6 @@
 services:
   mailer:
-    image: odk-mailer:latest
+    image: brunoxiii/odk-mailer_cache_redis_v2:latest
     ports:
       - "4000:4000"
     env_file:
