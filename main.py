@@ -49,8 +49,9 @@ async def lifespan(app):
     # Al iniciar
     logger.info("Iniciando")
 
-    # Controla si se drenan pendientes al arranque:
-    # true => intenta enviar backup=1; false => no procesa pendientes en startup.
+    
+    # true => intenta enviar backup=1; 
+    # false => no procesa pendientes en startup.
     if os.getenv("SEND_PENDING_ON_STARTUP", "false").strip().lower() == "true":
         logger.info("Enviando correos pendientes al iniciar...")
         try:
