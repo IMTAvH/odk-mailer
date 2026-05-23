@@ -8,23 +8,20 @@ def correo_encuesta_nac(parsed, next_form_url=None):
     if next_form_url:
         link_section = f"""
                     <li>
-                        Formulario Principal: <a href="{next_form_url}">Acceder</a> - Llena tus respuestas y presiona <strong>enviar</strong>.
+                        Llena la Encuesta Nacional <a href="{next_form_url}">AQUI</a>.
                     </li>
         """
     subject = "¡Gracias por completar el pre registro del proyecto Laura!"
     message = f"""
 
-                    <p>Hola, gracias por tu interés en participar en el proyecto Laura.</p>
-
-                    <p>Ahora  que has completado el formulario de pre-registro, hemos generado un código de participante para tí</p>
+                    <p>Hola, gracias por tu interés en participar en el proyecto Laura, este es tu código de participante:</p>
 
                     <p>{short_id}</p>
 
-                    <p>Ya podemos empezar con la <strong>Encuesta Nacional</strong></p>
-
                     {link_section}
+                    <p>IMPORTANTE: al terminar de llenarla, no olvides presionar <strong>ENVIAR</strong>.</p>
 
-                    <p>Muchas gracias por tu participación en el proyecto <strong>Laura</strong>. 🫶</p>
+                    <p>Muchas gracias por tu participación. 🫶</p>
 
                     <p>Atentamente,<br>
                     Equipo del proyecto Laura</p>
@@ -42,9 +39,7 @@ def correo_agradecimiento(parsed):
 
                     <p>Toda la información que nos enviaste ha sido registrada correctamente en nuestra base de datos, ya podemos empezar a investigar 🧑‍💻. ¡Ya estás formando parte de la historia de la salud femenina en el Perú!</p>
 
-                    <p>Estamos muy contentos de contar con tu participación en el Proyecto <strong>Laura</strong></p>
-
-                    <p>Si eres seleccionada para la siguiente fase del proyecto, una Trabajadora de Campo se pondrá en contacto contigo 😀.</p>
+                    <p>¡Nuestra voz será escuchada! 😀</p>
 
                     <p>Atentamente,<br>
                     Equipo del proyecto Laura</p>
@@ -62,7 +57,7 @@ def correo_recordatorio(participante):
     if reminder_url:
         link_section = f"""
                     <li>
-                        Formulario Principal: <a href="{reminder_url}">Acceder</a> - Llena tus respuestas y presiona <strong>enviar</strong>.
+                        Llena la Encuesta Nacional <a href="{reminder_url}">AQUI</a>.
                     </li>
         """
 
@@ -94,7 +89,7 @@ def correo_encuesta_nac_backup(
     if next_form_url:
         link_section = f"""
                     <li>
-                        Formulario Principal: <a href="{next_form_url}">Acceder</a> - Llena tus respuestas y presiona <strong>enviar</strong>.
+                        Llena la Encuesta Nacional <a href="{next_form_url}">AQUI</a>.
                     </li>
         """
     subject = f"¡Gracias por completar el pre registro del proyecto {project_name}!!"
@@ -125,9 +120,7 @@ def correo_agradecimiento_backup(participante):
 
                     <p>Toda la información que nos enviaste ha sido registrada correctamente en nuestra base de datos, ya podemos empezar a investigar 🧑‍💻. ¡Ya estás formando parte de la historia de la salud femenina en el Perú!</p>
 
-                    <p>Estamos muy contentos de contar con tu participación en el Proyecto <strong>Laura</strong></p>
-
-                    <p>Si eres seleccionada para la siguiente fase del proyecto, una Trabajadora de Campo se pondrá en contacto contigo 😀.</p>
+                    <p>¡Nuestra voz será escuchada! 😀</p>
 
                     <p>Atentamente,<br>
                     Equipo del proyecto Laura</p>
